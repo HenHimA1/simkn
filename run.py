@@ -1,15 +1,79 @@
 import os
 import sys
 import signal
-import tkinter
+import socket
+import tkinter as tk
+from tkinter import scrolledtext
 import platform
 import threading
 import subprocess
-import socket
+
+# Constants for subprocess
+DETACHED_PROCESS = 0x00000008
+CREATE_NO_WINDOW = 0x08000000
 
 MANAGE_PY_PATH = os.path.join(os.path.dirname(__file__), "manage.py")
 INIT_SCRIPT_PATH = os.path.join(os.path.dirname(__file__), "setup", "init_groups.py")
 
+class ProcessThread:
+    def __init__(self):
+        self.process = None
+        self.thread = None
+        self.running = False
+        
+    def start_process(self, cmd):
+        self.running = True
+
+        def run():
+            if platform.system() == "Windows":
+                # Gunakan CREATE_NO_WINDOW flag untuk mencegah window console muncul di Windows
+                self.process = subprocess.Popen(
+                    cmd,
+                    creationflags=subprocess.CREATE_NO_WINDOW,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True
+                )
+            else:
+                self.process = subprocess.Popen(
+                    cmd,
+                    preexec_fn=os.setsid,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True
+                )
+            
+            # Read output
+            while self.process and self.process.poll() is None:
+                line = self.process.stdout.readline()
+                if line and hasattr(self, 'output_callback') and self.output_callback:
+                    self.output_callback(line)
+            
+            # Jika proses selesai secara normal
+            self.running = False
+
+        self.thread = threading.Thread(target=run, daemon=True)
+        self.thread.start()
+    
+    def set_output_callback(self, callback):
+        self.output_callback = callback
+
+    def stop_process(self):
+        if self.process:
+            try:
+                if platform.system() == "Windows":
+                    # Gunakan Win32 API untuk mengakhiri proses dengan lebih bersih
+                    # tanpa menampilkan jendela pesan
+                    import ctypes
+                    kernel32 = ctypes.WinDLL('kernel32')
+                    kernel32.TerminateProcess(int(self.process._handle), 1)
+                else:
+                    os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
+            except Exception as e:
+                print(f"Error stopping process: {e}")
+            self.process = None
+        self.running = False
+        
 class SIMKN:
     def __init__(self, root):
         self.root = root
@@ -17,123 +81,122 @@ class SIMKN:
         self.server_process = None
 
         # Top frame untuk tombol + IP input
-        top_frame = tkinter.Frame(root)
-        top_frame.pack(fill=tkinter.X, padx=10, pady=10)
+        top_frame = tk.Frame(root)
+        top_frame.pack(fill=tk.X, padx=10, pady=10)
 
         # Start/Stop button (kiri)
-        self.start_button = tkinter.Button(top_frame, text="Start", width=15, command=self.toggle_start)
-        self.start_button.pack(side=tkinter.LEFT)
+        self.start_button = tk.Button(top_frame, text="Start", width=15, command=self.toggle_start)
+        self.start_button.pack(side=tk.LEFT)
 
         # Update button (sebelah kanan Start)
-        self.update_button = tkinter.Button(top_frame, text="Update", width=15, command=self.update_action)
-        self.update_button.pack(side=tkinter.LEFT, padx=(10, 0))
+        self.update_button = tk.Button(top_frame, text="Update", width=15, command=self.update_action)
+        self.update_button.pack(side=tk.LEFT, padx=(10, 0))
 
         # Spacer agar label IP tetap di kanan
-        tkinter.Label(top_frame, text="").pack(side=tkinter.LEFT, expand=True)
+        tk.Label(top_frame, text="").pack(side=tk.LEFT, expand=True)
 
         # Label + Entry untuk alamat IP (pojok kanan)
-        self.ip_label = tkinter.Label(top_frame, text="Address:", font=("Arial", 10))
-        self.ip_label.pack(side=tkinter.LEFT)
+        self.ip_label = tk.Label(top_frame, text="Address:", font=("Arial", 10))
+        self.ip_label.pack(side=tk.LEFT)
 
-        self.address_var = tkinter.StringVar()
-        self.address_entry = tkinter.Entry(top_frame, textvariable=self.address_var, width=30, justify='left', fg="blue")
+        self.address_var = tk.StringVar()
+        self.address_entry = tk.Entry(top_frame, textvariable=self.address_var, width=30, justify='left', fg="blue")
         self.address_entry.configure(state='readonly')
-        self.address_entry.pack(side=tkinter.LEFT)
+        self.address_entry.pack(side=tk.LEFT)
 
-        # Area log
-        self.log_output = tkinter.Text(root, height=20, width=80)
-        self.log_output.pack(padx=10, pady=10)
+        # Area log dengan scrollbar
+        self.log_output = scrolledtext.ScrolledText(root, height=20, width=80)
+        self.log_output.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+        
+        # Event handler untuk closing window
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
     def get_local_ip(self):
         try:
-            ip = socket.gethostbyname(socket.gethostname())
-            if ip.startswith("127."):
-                ip = socket.gethostbyname(socket.getfqdn())
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            # Tidak benar-benar terhubung, hanya menetapkan target tujuan
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
             return ip
         except Exception:
             return "127.0.0.1"
 
-    def toggle_start(self):
-        if self.server_process is None:
-            # Jalankan server
-            if platform.system() == "Windows":
-                self.server_process = subprocess.run(
-                    [sys.executable, MANAGE_PY_PATH, "runserver", "0.0.0.0:8000", "--noreload"],
-                    creationflags=subprocess.CREATE_NEW_PROCESS_GROUP,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True
-                )
-            else:
-                self.server_process = subprocess.run(
-                    [sys.executable, MANAGE_PY_PATH, "runserver", "0.0.0.0:8000", "--noreload"],
-                    preexec_fn=os.setsid,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True
-                )
+    def add_log(self, text):
+        self.log_output.insert(tk.END, text)
+        self.log_output.see(tk.END)
+        # Memperbarui UI
+        self.root.update_idletasks()
 
+    def toggle_start(self):
+        if not self.server_process or not self.server_process.running:
+            # Jalankan server
+            self.server_process = ProcessThread()
+            self.server_process.set_output_callback(self.add_log)
+            self.server_process.start_process([sys.executable, MANAGE_PY_PATH, "runserver", "0.0.0.0:8000", "--noreload"])
             self.start_button.config(text="Stop")
             self.update_button.config(state="disabled")  # ⛔ Disable Update
             ip = self.get_local_ip()
             self.address_var.set(f"http://{ip}:8000")
-            self.log_output.insert(tkinter.END, "Server started...\n")
-            threading.Thread(target=self.read_output, daemon=True).start()
+            self.add_log("Server started...\n")
         else:
-            # Hentikan server
-            if platform.system() == "Windows":
-                self.server_process.send_signal(signal.CTRL_BREAK_EVENT)
-            else:
-                os.killpg(os.getpgid(self.server_process.pid), signal.SIGTERM)
-
+            if self.server_process:
+                self.server_process.stop_process()
             self.server_process = None
             self.start_button.config(text="Start")
             self.update_button.config(state="normal")  # ✅ Enable Update
             self.address_var.set("")
-            self.log_output.insert(tkinter.END, "Server stopped...\n")
-
-    def read_output(self):
-        while self.server_process and self.server_process.poll() is None:
-            line = self.server_process.stdout.readline()
-            if line:
-                self.log_output.insert(tkinter.END, line)
-                self.log_output.see(tkinter.END)
+            self.add_log("Server stopped...\n")
 
     def update_action(self):
         try:
-            self.log_output.insert(tkinter.END, "🔄 Running `migrate`...\n")
-            self.log_output.see(tkinter.END)
+            self.add_log("🔄 Running `migrate`...\n")
 
-            migrate_result = subprocess.run(
+            # Gunakan flags khusus untuk mencegah window console muncul
+            kwargs = {}
+            if platform.system() == "Windows":
+                kwargs["creationflags"] = CREATE_NO_WINDOW
+            
+            migrate_process = subprocess.run(
                 [sys.executable, MANAGE_PY_PATH, "migrate"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
-                text=True
+                text=True,
+                **kwargs
             )
-            self.log_output.insert(tkinter.END, migrate_result.stdout)
+            self.add_log(migrate_process.stdout)
+                
+            self.add_log("\n🚀 Running `init_groups.py`...\n")
 
-            self.log_output.insert(tkinter.END, "\n🚀 Running `init_groups.py`...\n")
-            self.log_output.see(tkinter.END)
-
+            # Read the script content
             with open(INIT_SCRIPT_PATH, "r") as f:
-                result = subprocess.run(
-                    [sys.executable, MANAGE_PY_PATH, "shell"],
-                    stdin=f,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True
-                )
-                self.log_output.insert(tkinter.END, result.stdout)
+                script_content = f.read()
+            
+            # Run the script in Django shell
+            shell_process = subprocess.run(
+                [sys.executable, MANAGE_PY_PATH, "shell"],
+                input=script_content,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                **kwargs
+            )
+            self.add_log(shell_process.stdout)
 
-            self.log_output.insert(tkinter.END, "✅ Update finished.\n")
-            self.log_output.see(tkinter.END)
+            self.add_log("✅ Update finished.\n")
 
         except Exception as e:
-            self.log_output.insert(tkinter.END, f"❌ Error during update: {e}\n")
-            self.log_output.see(tkinter.END)
+            self.add_log(f"❌ Error during update: {e}\n")
+            import traceback
+            self.add_log(traceback.format_exc())
+
+    def on_closing(self):
+        if self.server_process:
+            self.server_process.stop_process()
+        self.root.destroy()
 
 # Menjalankan aplikasi
 if __name__ == "__main__":
-    root = tkinter.Tk()
+    root = tk.Tk()
     app = SIMKN(root)
     root.mainloop()
