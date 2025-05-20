@@ -5,7 +5,7 @@ from .models import Patient, Insurance
 class PatientAdmin(admin.ModelAdmin):
     autocomplete_fields = ["insurance_id"]
     search_fields = ["number", "name"]
-    list_display = ('number', 'name', 'sex', 'age', 'weight', 'height', 'input_date')
+    list_display = ('number', 'name', 'gender', 'age', 'weight', 'height', 'input_date')
 
 @admin.register(Insurance)
 class InsuranceAdmin(admin.ModelAdmin):

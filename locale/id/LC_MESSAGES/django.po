@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-20 10:03+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\examination\models.py:6 .\examination\models.py:13
+#: .\examination\models.py:20 .\examination\models.py:27
+#: .\examination\models.py:34 .\examination\models.py:41
+#: .\registration\models.py:14
+msgid "Name"
+msgstr ""
+
+#: .\examination\models.py:49
+msgid "Patient"
+msgstr ""
+
+#: .\examination\models.py:50
+msgid "Exam date"
+msgstr ""
+
+#: .\examination\models.py:51
+msgid "Inject date"
+msgstr ""
+
+#: .\examination\models.py:52
+msgid "Diagnosis"
+msgstr ""
+
+#: .\examination\models.py:53
+msgid "Procedure"
+msgstr ""
+
+#: .\examination\models.py:54
+msgid "Radionuclide"
+msgstr ""
+
+#: .\examination\models.py:55
+msgid "pharmaceutical"
+msgstr ""
+
+#: .\examination\models.py:56
+msgid "Post injection"
+msgstr ""
+
+#: .\examination\models.py:57
+msgid "Pre injection"
+msgstr ""
+
+#: .\examination\models.py:58
+msgid "Sequence CT"
+msgstr ""
+
+#: .\examination\models.py:60
+msgid "CTDI"
+msgstr ""
+
+#: .\examination\models.py:61
+msgid "DLP"
+msgstr ""
+
+#: .\examination\models.py:62
+msgid "Location"
+msgstr ""
+
+#: .\registration\models.py:6 .\registration\models.py:18
+msgid "Height"
+msgstr ""
+
+#: .\registration\models.py:13
+msgid "Number"
+msgstr ""
+
+#: .\registration\models.py:15
+msgid "Birth date"
+msgstr ""
+
+#: .\registration\models.py:16
+msgid "Male"
+msgstr ""
+
+#: .\registration\models.py:16
+msgid "Female"
+msgstr ""
+
+#: .\registration\models.py:16
+msgid "Gender"
+msgstr ""
+
+#: .\registration\models.py:17
+msgid "Weight"
+msgstr ""
+
+#: .\registration\models.py:20
+msgid "Insurance"
+msgstr ""
