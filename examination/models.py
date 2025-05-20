@@ -52,7 +52,7 @@ class SPECT(models.Model):
     diagnosis_id = models.ForeignKey(Diagnosis, on_delete=models.PROTECT, verbose_name=_("Diagnosis"), null=True, blank=True)
     procedure_id = models.ForeignKey(Procedure, on_delete=models.PROTECT, verbose_name=_("Procedure"), null=True)
     radionuclide_id = models.ForeignKey(Radionuclide, on_delete=models.PROTECT, verbose_name=_("Radionuclide"), null=True)
-    pharmaceutical_id = models.ForeignKey(Pharmaceutical, on_delete=models.PROTECT, verbose_name=_("pharmaceutical"), null=True)
+    pharmaceutical_id = models.ForeignKey(Pharmaceutical, on_delete=models.PROTECT, verbose_name=_("Pharmaceutical"), null=True)
     activity_post_injection = models.FloatField(null=True, help_text="mCi", verbose_name=_("Post injection"))
     activity_pre_injection = models.FloatField(null=True, help_text="mCi", verbose_name=_("Pre injection"))
     sequence_ct = models.ManyToManyField(SequenceCT, blank=True, verbose_name=_("Sequence CT"))
@@ -65,4 +65,5 @@ class SPECT(models.Model):
         return f"{self.patient_id.name}"
     
     class Meta:
-        verbose_name_plural = "SPECT"
+        verbose_name = _("SPECT")
+        verbose_name_plural = _("SPECTs")

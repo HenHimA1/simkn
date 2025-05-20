@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 10:03+0700\n"
+"POT-Creation-Date: 2025-05-20 10:18+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: .\examination\apps.py:10
+msgid "examination"
+msgstr "Pemeriksaan"
+
 #: .\examination\models.py:6 .\examination\models.py:13
 #: .\examination\models.py:20 .\examination\models.py:27
 #: .\examination\models.py:34 .\examination\models.py:41
 #: .\registration\models.py:14
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
-#: .\examination\models.py:49
+#: .\examination\models.py:49 .\registration\models.py:35
 msgid "Patient"
-msgstr ""
+msgstr "Pasien"
 
 #: .\examination\models.py:50
 msgid "Exam date"
-msgstr ""
+msgstr "Waktu pemeriksaan"
 
 #: .\examination\models.py:51
 msgid "Inject date"
-msgstr ""
+msgstr "Waktu injeksi"
 
 #: .\examination\models.py:52
 msgid "Diagnosis"
-msgstr ""
+msgstr "Diagnosa"
 
 #: .\examination\models.py:53
 msgid "Procedure"
@@ -47,11 +51,11 @@ msgstr ""
 
 #: .\examination\models.py:54
 msgid "Radionuclide"
-msgstr ""
+msgstr "Radionuklida"
 
 #: .\examination\models.py:55
-msgid "pharmaceutical"
-msgstr ""
+msgid "Pharmaceutical"
+msgstr "Farmaka"
 
 #: .\examination\models.py:56
 msgid "Post injection"
@@ -75,36 +79,48 @@ msgstr ""
 
 #: .\examination\models.py:62
 msgid "Location"
+msgstr "Lokasi"
+
+#: .\examination\models.py:68
+msgid "SPECT"
+msgstr ""
+
+#: .\examination\models.py:69
+msgid "SPECTs"
 msgstr ""
 
 #: .\registration\models.py:6 .\registration\models.py:18
 msgid "Height"
-msgstr ""
+msgstr "Tinggi badan"
 
 #: .\registration\models.py:13
 msgid "Number"
-msgstr ""
+msgstr "Nomor"
 
 #: .\registration\models.py:15
 msgid "Birth date"
-msgstr ""
+msgstr "Tanggal lahir"
 
 #: .\registration\models.py:16
 msgid "Male"
-msgstr ""
+msgstr "Pria"
 
 #: .\registration\models.py:16
 msgid "Female"
-msgstr ""
+msgstr "Wanita"
 
 #: .\registration\models.py:16
 msgid "Gender"
-msgstr ""
+msgstr "Jenis kelamin"
 
 #: .\registration\models.py:17
 msgid "Weight"
-msgstr ""
+msgstr "Berat badan"
 
 #: .\registration\models.py:20
 msgid "Insurance"
-msgstr ""
+msgstr "Asuransi"
+
+#: .\registration\models.py:36
+msgid "Patients"
+msgstr "Pasien"

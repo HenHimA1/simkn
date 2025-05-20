@@ -3,15 +3,15 @@ from django.db import models
 from datetime import date
 
 class Insurance(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_("Height"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     input_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
 
 class Patient(models.Model):
-    number = models.CharField(max_length=100, unique=True, verbose_name=_("Number"))
-    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    number = models.CharField(max_length=100, unique=True, verbose_name=_("Number"), null=True)
+    name = models.CharField(max_length=100, verbose_name=_("Name"), null=True)
     birth_date = models.DateField(verbose_name=_("Birth date"))
     gender = models.CharField(max_length=1, choices=[("M", _("Male")), ("F", _("Female"))], null=True, verbose_name=_("Gender"))
     weight = models.FloatField(help_text="kg", verbose_name=_("Weight"))
@@ -30,3 +30,7 @@ class Patient(models.Model):
 
     def __str__(self):
         return f"{self.number}-{self.name}"
+    
+    class Meta:
+        verbose_name = _("Patient")
+        verbose_name_plural = _("Patients")
