@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 10:18+0700\n"
+"POT-Creation-Date: 2025-05-20 10:43+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,59 +25,60 @@ msgstr "Pemeriksaan"
 #: .\examination\models.py:6 .\examination\models.py:13
 #: .\examination\models.py:20 .\examination\models.py:27
 #: .\examination\models.py:34 .\examination\models.py:41
-#: .\registration\models.py:14
+#: .\registration\models.py:6 .\registration\models.py:14
 msgid "Name"
 msgstr "Nama"
 
-#: .\examination\models.py:49 .\registration\models.py:35
+#: .\examination\models.py:49 .\examination\models.py:72
+#: .\registration\models.py:35
 msgid "Patient"
 msgstr "Pasien"
 
-#: .\examination\models.py:50
+#: .\examination\models.py:50 .\examination\models.py:73
 msgid "Exam date"
 msgstr "Waktu pemeriksaan"
 
-#: .\examination\models.py:51
+#: .\examination\models.py:51 .\examination\models.py:74
 msgid "Inject date"
 msgstr "Waktu injeksi"
 
-#: .\examination\models.py:52
+#: .\examination\models.py:52 .\examination\models.py:75
 msgid "Diagnosis"
 msgstr "Diagnosa"
 
-#: .\examination\models.py:53
+#: .\examination\models.py:53 .\examination\models.py:76
 msgid "Procedure"
-msgstr ""
+msgstr "Kelompok pemeriksaan"
 
-#: .\examination\models.py:54
+#: .\examination\models.py:54 .\examination\models.py:77
 msgid "Radionuclide"
 msgstr "Radionuklida"
 
-#: .\examination\models.py:55
+#: .\examination\models.py:55 .\examination\models.py:78
 msgid "Pharmaceutical"
 msgstr "Farmaka"
 
-#: .\examination\models.py:56
+#: .\examination\models.py:56 .\examination\models.py:79
 msgid "Post injection"
 msgstr ""
 
-#: .\examination\models.py:57
+#: .\examination\models.py:57 .\examination\models.py:80
 msgid "Pre injection"
 msgstr ""
 
-#: .\examination\models.py:58
+#: .\examination\models.py:58 .\examination\models.py:81
 msgid "Sequence CT"
 msgstr ""
 
-#: .\examination\models.py:60
+#: .\examination\models.py:60 .\examination\models.py:83
 msgid "CTDI"
 msgstr ""
 
-#: .\examination\models.py:61
+#: .\examination\models.py:61 .\examination\models.py:84
 msgid "DLP"
 msgstr ""
 
-#: .\examination\models.py:62
+#: .\examination\models.py:62 .\examination\models.py:85
 msgid "Location"
 msgstr "Lokasi"
 
@@ -89,9 +90,23 @@ msgstr ""
 msgid "SPECTs"
 msgstr ""
 
-#: .\registration\models.py:6 .\registration\models.py:18
-msgid "Height"
-msgstr "Tinggi badan"
+#: .\examination\models.py:86
+msgid "Exposure rate"
+msgstr ""
+
+#: .\examination\models.py:92
+msgid "PET"
+msgstr ""
+
+#: .\examination\models.py:93
+msgid "PETs"
+msgstr ""
+
+#: .\registration\apps.py:10
+#, fuzzy
+#| msgid "examination"
+msgid "registration"
+msgstr "Pemeriksaan"
 
 #: .\registration\models.py:13
 msgid "Number"
@@ -116,6 +131,10 @@ msgstr "Jenis kelamin"
 #: .\registration\models.py:17
 msgid "Weight"
 msgstr "Berat badan"
+
+#: .\registration\models.py:18
+msgid "Height"
+msgstr "Tinggi badan"
 
 #: .\registration\models.py:20
 msgid "Insurance"

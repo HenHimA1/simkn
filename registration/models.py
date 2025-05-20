@@ -17,7 +17,7 @@ class Patient(models.Model):
     weight = models.FloatField(help_text="kg", verbose_name=_("Weight"))
     height = models.FloatField(help_text="cm", verbose_name=_("Height"))
     input_date = models.DateTimeField(auto_now_add=True)
-    insurance_id = models.ForeignKey(Insurance, on_delete=models.SET_NULL, blank=True, null=True, verbose_name=_("Insurance"))
+    insurance = models.ForeignKey(Insurance, on_delete=models.SET_NULL, blank=True, null=True, verbose_name=_("Insurance"))
 
     @property
     def age(self):

@@ -3,7 +3,7 @@ from .models import Patient, Insurance
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    autocomplete_fields = ["insurance_id"]
+    autocomplete_fields = ["insurance"]
     search_fields = ["number", "name"]
     list_display = ('number', 'name', 'gender', 'age', 'weight', 'height', 'input_date')
 

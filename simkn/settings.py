@@ -143,14 +143,33 @@ JAZZMIN_SETTINGS = {
     "icons": {
         "registration.Patient": "fas fa-hospital-user",
         "examination.SPECT": "fas fa-atom",
+        "examination.PET": "fas fa-radiation",
     },
     "hide_models": ["registration.Insurance", 
-                    "examination.Procedure", 
-                    "examination.Pharmaceutical", 
-                    "examination.Radionuclide", 
-                    "examination.Diagnosis",
+                    "examination.PETProcedure", 
+                    "examination.PETPharmaceutical", 
+                    "examination.PETRadionuclide", 
+                    "examination.PETDiagnosis",
+                    "examination.SPECTProcedure", 
+                    "examination.SPECTPharmaceutical", 
+                    "examination.SPECTRadionuclide", 
+                    "examination.SPECTDiagnosis",
                     "examination.SequenceCT",
                     "examination.Location",
                     ],
     "language_chooser": True,
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
 }
