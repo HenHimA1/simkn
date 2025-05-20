@@ -1,0 +1,1 @@
+venv\Scripts\python.exe manage.py shell < setup/init_groups.py

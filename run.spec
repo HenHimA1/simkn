@@ -7,7 +7,9 @@ block_cipher = None
 
 # Tambahkan file-data eksternal yang dibutuhkan (misalnya: setup/init_groups.py)
 datas = [
+    ('manage.py', 'manage.py'),
     ('setup/init_groups.py', 'setup'),
+    ('venv/Scripts/python.exe', 'python/python.exe'),
 ]
 
 # Tambahkan semua submodul Django
