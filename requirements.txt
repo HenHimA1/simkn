@@ -1,6 +1,9 @@
 asgiref==3.8.1
 Django==4.2.21
 django-jazzmin==3.0.1
+PyQt5==5.15.11
+PyQt5-Qt5==5.15.2
+PyQt5_sip==12.17.0
 sqlparse==0.5.3
 typing_extensions==4.13.2
 tzdata==2025.2
