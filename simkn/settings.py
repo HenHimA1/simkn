@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2iv)^)s@vsh4q@of*gba&8ew)$co5&+5rt@hd$s&4ht5u8p$(r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -126,10 +126,18 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
+    "welcome_sign": "",
     "theme": "darkly",
     "icons": {
         "registration.Patient": "fas fa-hospital-user",
         "examination.SPECT": "fas fa-atom",
     },
-    "hide_models": ["registration.Insurance", "examination.Procedure", "examination.Pharmaceutical", "examination.Radionuclide"],
+    "hide_models": ["registration.Insurance", 
+                    "examination.Procedure", 
+                    "examination.Pharmaceutical", 
+                    "examination.Radionuclide", 
+                    "examination.Diagnosis",
+                    "examination.SequenceCT",
+                    "examination.Location",
+                    ],
 }

@@ -12,6 +12,7 @@ class Patient(models.Model):
     number = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
     birth_date = models.DateField()
+    sex = models.CharField(max_length=1, choices=[("M", "Male"), ("F", "Female")], null=True)
     weight = models.FloatField(help_text="Dalam kg")
     height = models.FloatField(help_text="Dalam cm")
     input_date = models.DateTimeField(auto_now_add=True)

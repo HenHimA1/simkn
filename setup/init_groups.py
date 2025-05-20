@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
 from registration.models import Patient, Insurance
-from examination.models import Radionuclide, Pharmaceutical, Procedure, SPECT
+from examination.models import Radionuclide, Pharmaceutical, Procedure, SPECT, Diagnosis, Location, SequenceCT
 
 username = 'admin'
 password = 'admin'
@@ -50,5 +50,17 @@ permissions = Permission.objects.filter(content_type=content_type)
 [group.permissions.add(perm.id) for perm in permissions]
 
 content_type = ContentType.objects.get_for_model(SPECT)
+permissions = Permission.objects.filter(content_type=content_type)
+[group.permissions.add(perm.id) for perm in permissions]
+
+content_type = ContentType.objects.get_for_model(Diagnosis)
+permissions = Permission.objects.filter(content_type=content_type)
+[group.permissions.add(perm.id) for perm in permissions]
+
+content_type = ContentType.objects.get_for_model(Location)
+permissions = Permission.objects.filter(content_type=content_type)
+[group.permissions.add(perm.id) for perm in permissions]
+
+content_type = ContentType.objects.get_for_model(SequenceCT)
 permissions = Permission.objects.filter(content_type=content_type)
 [group.permissions.add(perm.id) for perm in permissions]
