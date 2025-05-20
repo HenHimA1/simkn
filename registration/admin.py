@@ -5,8 +5,10 @@ from .models import Patient, Insurance
 class PatientAdmin(admin.ModelAdmin):
     autocomplete_fields = ["insurance"]
     search_fields = ["number", "name"]
+    ordering = ["id"]
     list_display = ('number', 'name', 'gender', 'age', 'weight', 'height', 'input_date')
 
 @admin.register(Insurance)
 class InsuranceAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    ordering = ["id"]
