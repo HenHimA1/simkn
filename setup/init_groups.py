@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
-from registration.models import Patient, Insurance
+from registration.models import Patient
 from examination.models import PETRadionuclide, PETPharmaceutical, PETProcedure, PETDiagnosis, SPECTRadionuclide, SPECTPharmaceutical, SPECTProcedure, SPECTDiagnosis, SPECT, PET, Location, SequenceCT
 
 username = 'admin'
@@ -9,12 +9,6 @@ password = 'admin'
 # Buat superuser
 if not User.objects.filter(username=username).exists():
     User.objects.create_superuser(username=username, password=password, email='admin@mail.com')
-
-if not Insurance.objects.filter(name="Personal").exists():
-    Insurance.objects.create(name='Personal')
-
-if not Insurance.objects.filter(name="BPJS").exists():
-    Insurance.objects.create(name='BPJS')
 
 if not SPECTRadionuclide.objects.filter(name="Tc-99m").exists():
     SPECTRadionuclide.objects.create(name='Tc-99m')
@@ -39,10 +33,6 @@ group, created = Group.objects.get_or_create(name='Petugas Input Pasien')
 
 # Ambil semua permission untuk model Pasien
 content_type = ContentType.objects.get_for_model(Patient)
-permissions = Permission.objects.filter(content_type=content_type)
-[group.permissions.add(perm.id) for perm in permissions]
-
-content_type = ContentType.objects.get_for_model(Insurance)
 permissions = Permission.objects.filter(content_type=content_type)
 [group.permissions.add(perm.id) for perm in permissions]
 
