@@ -37,7 +37,7 @@ class SPECTAdmin(admin.ModelAdmin):
     ordering = ["id"]
     autocomplete_fields = ["patient", "radionuclide", "pharmaceutical", "procedure", "diagnosis", "location", "sequence_ct"]
     list_display = ["procedure", "radionuclide", "patient", "exam_date", "input_date"]
-    list_filter = ["procedure", "radionuclide"]
+    list_filter = ["procedure", "radionuclide", "exam_date"]
 
     def export_as_csv(self, request, queryset):
         meta = self.model._meta
@@ -95,7 +95,7 @@ class PETAdmin(admin.ModelAdmin):
     ordering = ["id"]
     autocomplete_fields = ["patient", "radionuclide", "pharmaceutical", "procedure", "diagnosis", "location", "sequence_ct"]
     list_display = ["procedure", "radionuclide", "patient", "exam_date", "input_date"]
-    list_filter = ["procedure", "radionuclide"]
+    list_filter = ["procedure", "radionuclide", "exam_date"]
 
     def export_as_csv(self, request, queryset):
         meta = self.model._meta
