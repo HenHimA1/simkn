@@ -5,3 +5,4 @@ venv
 *.mo
 build
 dist
+staticfiles

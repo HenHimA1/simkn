@@ -25,4 +25,4 @@ class Patient(models.Model):
     
     class Meta:
         verbose_name = _("Patient")
-        verbose_name_plural = _("Patients")
+        verbose_name_plural = _("Patient")

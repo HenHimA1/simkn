@@ -66,7 +66,7 @@ class SPECT(models.Model):
     
     class Meta:
         verbose_name = _("SPECT")
-        verbose_name_plural = _("SPECTs")
+        verbose_name_plural = _("SPECT")
 
 class PETRadionuclide(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
@@ -118,4 +118,4 @@ class PET(models.Model):
     
     class Meta:
         verbose_name = _("PET")
-        verbose_name_plural = _("PETs")
+        verbose_name_plural = _("PET")

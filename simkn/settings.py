@@ -129,6 +129,7 @@ LOCALE_PATHS = [
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATIC_URL = 'static/'
 
@@ -139,7 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
     "welcome_sign": "",
-    "theme": "darkly",
     "icons": {
         "registration.Patient": "fas fa-hospital-user",
         "examination.SPECT": "fas fa-atom",
@@ -156,7 +156,16 @@ JAZZMIN_SETTINGS = {
                     "examination.SequenceCT",
                     "examination.Location",
                     ],
+    # "topmenu_links": [
+    #     {"model": "registration.Patient"},
+    # ],
     "language_chooser": True,
+    "use_google_fonts_cdn": True,
+    # "show_ui_builder": True,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "simplex",
 }
 
 LOGGING = {
