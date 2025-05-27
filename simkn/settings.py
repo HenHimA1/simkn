@@ -159,6 +159,7 @@ JAZZMIN_SETTINGS = {
     # "topmenu_links": [
     #     {"model": "registration.Patient"},
     # ],
+    # "custom_css": "staticfiles/examination/css/admin.css",
     "language_chooser": True,
     "use_google_fonts_cdn": True,
     # "show_ui_builder": True,
