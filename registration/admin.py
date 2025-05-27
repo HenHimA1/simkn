@@ -1,5 +1,6 @@
 import csv
 
+from datetime import date
 from django.contrib import admin
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +18,7 @@ class PatientAdmin(admin.ModelAdmin):
         field_names = [field.name for field in meta.fields]
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = f'attachment; filename={meta.verbose_name_plural}.csv'
+        response['Content-Disposition'] = f'attachment; filename={meta.verbose_name}-{date.today()}.csv'
         writer = csv.writer(response)
 
         # Header
